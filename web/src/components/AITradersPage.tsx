@@ -1636,8 +1636,8 @@ function ModelConfigModal({
           <div className="flex gap-3 mt-6">
             <button
               type="button"
-onClick={onClose}
-className="flex-1 px-4 py-2 rounded text-sm font-semibold"
+              onClick={onClose}
+              className="flex-1 px-4 py-2 rounded text-sm font-semibold"
               style={{ background: '#2B3139', color: '#848E9C' }}
             >
               {t('cancel', language)}
