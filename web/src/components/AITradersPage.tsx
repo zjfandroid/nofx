@@ -28,6 +28,7 @@ import {
   AlertTriangle,
   BookOpen,
   HelpCircle,
+  ExternalLink,
 } from 'lucide-react'
 
 // 获取友好的AI模型名称
@@ -1633,8 +1634,8 @@ function ModelConfigModal({
           <div className="flex gap-3 mt-6">
             <button
               type="button"
-              onClick={onClose}
-              className="flex-1 px-4 py-2 rounded text-sm font-semibold"
+onClick={onClose}
+className="flex-1 px-4 py-2 rounded text-sm font-semibold"
               style={{ background: '#2B3139', color: '#848E9C' }}
             >
               {t('cancel', language)}
@@ -1839,6 +1840,19 @@ function ExchangeConfigModal({
   // 可选择的交易所列表（所有支持的交易所）
   const availableExchanges = allExchanges || []
 
+  function link2Exchange(name: string): void {
+      if (name === 'Binance Futures') {
+        window.open('https://www.maxweb.red/referral/earn-together/refer2earn-usdc/claim?hl=zh-CN&ref=GRO_28502_AUWD7&utm_source=default', '_blank', 'noopener,noreferrer');
+      } else if (name.toLowerCase() === 'hyperliquid') {
+        window.open('https://app.hyperliquid.xyz/join/JFENG', '_blank', 'noopener,noreferrer');
+      } else if (name === 'Aster DEX') {
+        window.open('https://www.asterdex.com/en/referral/57b76f', '_blank', 'noopener,noreferrer');
+      } else {
+        // 可以根据需要为其他交易所添加对应的链接
+        console.warn(`Exchange link for ${name} not implemented`);
+      }
+  }
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div
@@ -1916,24 +1930,29 @@ function ExchangeConfigModal({
 
           {selectedExchange && (
             <div
-              className="p-4 rounded"
+              onClick={() => link2Exchange(selectedExchange.name)}
+              className="p-4 rounded cursor-pointer hover:bg-opacity-90 transition-colors"
               style={{ background: '#0B0E11', border: '1px solid #2B3139' }}
             >
-              <div className="flex items-center gap-3 mb-3">
+              <div className="flex items-center justify-between gap-3 mb-3">
                 <div className="w-8 h-8 flex items-center justify-center">
                   {getExchangeIcon(selectedExchange.id, {
                     width: 32,
                     height: 32,
                   })}
                 </div>
-                <div>
+                <div className="flex-1">
                   <div className="font-semibold" style={{ color: '#EAECEF' }}>
                     {getShortName(selectedExchange.name)}
                   </div>
                   <div className="text-xs" style={{ color: '#848E9C' }}>
-                    {selectedExchange.type.toUpperCase()} •{' '}
+                    {selectedExchange.type.toUpperCase()} • {' '}
                     {selectedExchange.id}
                   </div>
+                </div>
+                <div className="flex items-center justify-center gap-1">
+                  <span className="text-xs" style={{ color: '#848E9C' }}>Jump</span>
+                  <ExternalLink size={16} style={{ color: '#848E9C' }} />
                 </div>
               </div>
             </div>
