@@ -146,10 +146,10 @@ export const translations = {
     currentTraders: 'Current Traders',
     noTraders: 'No AI Traders',
     createFirstTrader: 'Create your first AI trader to get started',
-    dashboardEmptyTitle: 'No Traders Configured',
+    dashboardEmptyTitle: "Let's Get Started!",
     dashboardEmptyDescription:
-      "You haven't created any AI traders yet. Create your first trader to start automated trading.",
-    goToTradersPage: 'Go to Traders Page',
+      'Create your first AI trader to automate your trading strategy. Connect an exchange, choose an AI model, and start trading in minutes!',
+    goToTradersPage: 'Create Your First Trader',
     configureModelsFirst: 'Please configure AI models first',
     configureExchangesFirst: 'Please configure exchanges first',
     configureModelsAndExchangesFirst:
@@ -470,9 +470,11 @@ export const translations = {
     completeRegistrationSubtitle: 'to complete registration',
     loginSuccess: 'Login successful',
     registrationSuccess: 'Registration successful',
-    loginFailed: 'Login failed',
-    registrationFailed: 'Registration failed',
-    verificationFailed: 'OTP verification failed',
+    loginFailed: 'Login failed. Please check your email and password.',
+    registrationFailed: 'Registration failed. Please try again.',
+    verificationFailed:
+      'OTP verification failed. Please check the code and try again.',
+    sessionExpired: 'Session expired, please login again',
     invalidCredentials: 'Invalid email or password',
     weak: 'Weak',
     medium: 'Medium',
@@ -495,6 +497,9 @@ export const translations = {
     exitLogin: 'Sign Out',
     signIn: 'Sign In',
     signUp: 'Sign Up',
+    registrationClosed: 'Registration Closed',
+    registrationClosedMessage:
+      'User registration is currently disabled. Please contact the administrator for access.',
 
     // Hero Section
     githubStarsInDays: '2.5K+ GitHub Stars in 3 days',
@@ -785,6 +790,36 @@ export const translations = {
     faqGetHelpAnswer:
       'Check GitHub Discussions, join our Telegram Community, or open an issue on GitHub.',
 
+    // Web Crypto Environment Check
+    environmentCheck: {
+      button: 'Check Secure Environment',
+      checking: 'Checking...',
+      description:
+        'Automatically verifying whether this browser context allows Web Crypto before entering sensitive keys.',
+      secureTitle: 'Secure context detected',
+      secureDesc:
+        'Web Crypto API is available. You can continue entering secrets with encryption enabled.',
+      insecureTitle: 'Insecure context detected',
+      insecureDesc:
+        'This page is not running over HTTPS or a trusted localhost origin, so browsers block Web Crypto calls.',
+      tipsTitle: 'How to fix:',
+      tipHTTPS:
+        'Serve the dashboard over HTTPS with a valid certificate (IP origins also need TLS).',
+      tipLocalhost:
+        'During development, open the app via http://localhost or 127.0.0.1.',
+      tipIframe:
+        'Avoid embedding the app in insecure HTTP iframes or reverse proxies that strip HTTPS.',
+      unsupportedTitle: 'Browser does not expose Web Crypto',
+      unsupportedDesc:
+        'Open NOFX over HTTPS (or http://localhost during development) and avoid insecure iframes/reverse proxies so the browser can enable Web Crypto.',
+      summary: 'Current origin: {origin} • Protocol: {protocol}',
+    },
+
+    environmentSteps: {
+      checkTitle: '1. Environment check',
+      selectTitle: '2. Select exchange',
+    },
+
     // Two-Stage Key Modal
     twoStageKey: {
       title: 'Two-Stage Private Key Input',
@@ -959,10 +994,10 @@ export const translations = {
     currentTraders: '当前交易员',
     noTraders: '暂无AI交易员',
     createFirstTrader: '创建您的第一个AI交易员开始使用',
-    dashboardEmptyTitle: '暂无交易员',
+    dashboardEmptyTitle: '开始使用吧！',
     dashboardEmptyDescription:
-      '您还未创建任何AI交易员，创建您的第一个交易员以开始自动化交易。',
-    goToTradersPage: '前往交易员页面',
+      '创建您的第一个 AI 交易员，自动化您的交易策略。连接交易所、选择 AI 模型，几分钟内即可开始交易！',
+    goToTradersPage: '创建您的第一个交易员',
     configureModelsFirst: '请先配置AI模型',
     configureExchangesFirst: '请先配置交易所',
     configureModelsAndExchangesFirst: '请先配置AI模型和交易所',
@@ -1250,9 +1285,10 @@ export const translations = {
     completeRegistrationSubtitle: '以完成注册',
     loginSuccess: '登录成功',
     registrationSuccess: '注册成功',
-    loginFailed: '登录失败',
-    registrationFailed: '注册失败',
-    verificationFailed: 'OTP验证失败',
+    loginFailed: '登录失败，请检查您的邮箱和密码。',
+    registrationFailed: '注册失败，请重试。',
+    verificationFailed: 'OTP 验证失败，请检查验证码后重试。',
+    sessionExpired: '登录已过期，请重新登录',
     invalidCredentials: '邮箱或密码错误',
     weak: '弱',
     medium: '中',
@@ -1274,6 +1310,8 @@ export const translations = {
     exitLogin: '退出登录',
     signIn: '登录',
     signUp: '注册',
+    registrationClosed: '注册已关闭',
+    registrationClosedMessage: '平台当前不开放新用户注册，如需访问请联系管理员获取账号。',
 
     // Hero Section
     githubStarsInDays: '3 天内 2.5K+ GitHub Stars',
@@ -1548,6 +1586,33 @@ export const translations = {
     faqGetHelp: '在哪里可以获得帮助？',
     faqGetHelpAnswer:
       '查看 GitHub Discussions、加入 Telegram 社区或在 GitHub 上提出 issue。',
+
+    // Web Crypto Environment Check
+    environmentCheck: {
+      button: '一键检测环境',
+      checking: '正在检测...',
+      description: '系统将自动检测当前浏览器是否允许使用 Web Crypto。',
+      secureTitle: '环境安全，已启用 Web Crypto',
+      secureDesc: '页面处于安全上下文，可继续输入敏感信息并使用加密传输。',
+      insecureTitle: '检测到非安全环境',
+      insecureDesc:
+        '当前访问未通过 HTTPS 或可信 localhost，浏览器会阻止 Web Crypto 调用。',
+      tipsTitle: '修改建议：',
+      tipHTTPS:
+        '通过 HTTPS 访问（即使是 IP 也需证书），或部署到支持 TLS 的域名。',
+      tipLocalhost: '开发阶段请使用 http://localhost 或 127.0.0.1。',
+      tipIframe:
+        '避免把应用嵌入在不安全的 HTTP iframe 或会降级协议的反向代理中。',
+      unsupportedTitle: '浏览器未提供 Web Crypto',
+      unsupportedDesc:
+        '请通过 HTTPS 或本机 localhost 访问 NOFX，并避免嵌入不安全 iframe/反向代理，以符合浏览器的 Web Crypto 规则。',
+      summary: '当前来源：{origin} · 协议：{protocol}',
+    },
+
+    environmentSteps: {
+      checkTitle: '1. 环境检测',
+      selectTitle: '2. 选择交易所',
+    },
 
     // Two-Stage Key Modal
     twoStageKey: {
