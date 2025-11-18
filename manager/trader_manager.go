@@ -480,6 +480,8 @@ func (tm *TraderManager) GetComparisonData() (map[string]interface{}, error) {
 			"margin_used_pct": account["margin_used_pct"],
 			"call_count":      status["call_count"],
 			"is_running":      status["is_running"],
+			"custom_prompt":          t.GetCustomPrompt(),
+			"system_prompt_template": t.GetSystemPromptTemplate(),
 		})
 	}
 
