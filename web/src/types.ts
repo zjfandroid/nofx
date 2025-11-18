@@ -171,6 +171,8 @@ export interface UpdateExchangeConfigRequest {
 export interface CompetitionTraderData {
   trader_id: string
   trader_name: string
+  custom_prompt?: string
+  system_prompt_template?: string
   ai_model: string
   exchange: string
   total_equity: number
