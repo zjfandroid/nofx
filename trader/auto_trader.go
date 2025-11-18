@@ -1186,6 +1186,11 @@ func (at *AutoTrader) GetExchange() string {
 	return at.exchange
 }
 
+// GetCustomPrompt 获取自定义交易策略prompt
+func (at *AutoTrader) GetCustomPrompt() string {
+	return at.customPrompt
+}
+
 // SetCustomPrompt 设置自定义交易策略prompt
 func (at *AutoTrader) SetCustomPrompt(prompt string) {
 	at.customPrompt = prompt
