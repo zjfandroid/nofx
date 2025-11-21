@@ -454,7 +454,7 @@ type AIModelConfig struct {
 	APIKey          string    `json:"apiKey"`
 	CustomAPIURL    string    `json:"customApiUrl"`
 	CustomModelName string    `json:"customModelName"`
-	CreatedAt       time.Time `json:"created_at"`
+CreatedAt       time.Time `json:"created_at"`
 	UpdatedAt       time.Time `json:"updated_at"`
 }
 
@@ -768,16 +768,26 @@ func (d *Database) GetExchanges(userID string) ([]*ExchangeConfig, error) {
 	exchanges := make([]*ExchangeConfig, 0)
 	for rows.Next() {
 		var exchange ExchangeConfig
+		// 使用 sql.NullTime 来处理时间字段
+		var createdAt, updatedAt sql.NullTime
 		err := rows.Scan(
 			&exchange.ID, &exchange.UserID, &exchange.Name, &exchange.Type,
 			&exchange.Enabled, &exchange.APIKey, &exchange.SecretKey, &exchange.Testnet,
 			&exchange.HyperliquidWalletAddr, &exchange.AsterUser,
 			&exchange.AsterSigner, &exchange.AsterPrivateKey,
 			&exchange.LighterWalletAddr, &exchange.LighterPrivateKey,
-			&exchange.CreatedAt, &exchange.UpdatedAt,
+			&createdAt, &updatedAt,
 		)
 		if err != nil {
 			return nil, err
+		}
+
+		// 将 sql.NullTime 转换为 time.Time
+		if createdAt.Valid {
+			exchange.CreatedAt = createdAt.Time
+		}
+		if updatedAt.Valid {
+			exchange.UpdatedAt = updatedAt.Time
 		}
 
 		// 解密敏感字段
