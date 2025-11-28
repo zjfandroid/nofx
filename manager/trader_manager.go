@@ -245,6 +245,9 @@ func (tm *TraderManager) addTraderFromDB(traderCfg *config.TraderRecord, aiModel
 	if exchangeCfg.ID == "binance" {
 		traderConfig.BinanceAPIKey = exchangeCfg.APIKey
 		traderConfig.BinanceSecretKey = exchangeCfg.SecretKey
+	} else if exchangeCfg.ID == "bybit" {
+		traderConfig.BybitAPIKey = exchangeCfg.APIKey
+		traderConfig.BybitSecretKey = exchangeCfg.SecretKey
 	} else if exchangeCfg.ID == "hyperliquid" {
 		traderConfig.HyperliquidPrivateKey = exchangeCfg.APIKey // hyperliquid用APIKey存储private key
 		traderConfig.HyperliquidWalletAddr = exchangeCfg.HyperliquidWalletAddr
@@ -355,6 +358,9 @@ func (tm *TraderManager) AddTraderFromDB(traderCfg *config.TraderRecord, aiModel
 	if exchangeCfg.ID == "binance" {
 		traderConfig.BinanceAPIKey = exchangeCfg.APIKey
 		traderConfig.BinanceSecretKey = exchangeCfg.SecretKey
+	} else if exchangeCfg.ID == "bybit" {
+		traderConfig.BybitAPIKey = exchangeCfg.APIKey
+		traderConfig.BybitSecretKey = exchangeCfg.SecretKey
 	} else if exchangeCfg.ID == "hyperliquid" {
 		traderConfig.HyperliquidPrivateKey = exchangeCfg.APIKey // hyperliquid用APIKey存储private key
 		traderConfig.HyperliquidWalletAddr = exchangeCfg.HyperliquidWalletAddr
@@ -488,8 +494,6 @@ func (tm *TraderManager) GetComparisonData() (map[string]interface{}, error) {
 			"margin_used_pct": account["margin_used_pct"],
 			"call_count":      status["call_count"],
 			"is_running":      status["is_running"],
-			"custom_prompt":          t.GetCustomPrompt(),
-			"system_prompt_template": t.GetSystemPromptTemplate(),
 		})
 	}
 
@@ -1062,6 +1066,9 @@ func (tm *TraderManager) loadSingleTrader(traderCfg *config.TraderRecord, aiMode
 	if exchangeCfg.ID == "binance" {
 		traderConfig.BinanceAPIKey = exchangeCfg.APIKey
 		traderConfig.BinanceSecretKey = exchangeCfg.SecretKey
+	} else if exchangeCfg.ID == "bybit" {
+		traderConfig.BybitAPIKey = exchangeCfg.APIKey
+		traderConfig.BybitSecretKey = exchangeCfg.SecretKey
 	} else if exchangeCfg.ID == "hyperliquid" {
 		traderConfig.HyperliquidPrivateKey = exchangeCfg.APIKey // hyperliquid用APIKey存储private key
 		traderConfig.HyperliquidWalletAddr = exchangeCfg.HyperliquidWalletAddr
