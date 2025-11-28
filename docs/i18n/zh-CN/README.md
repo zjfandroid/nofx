@@ -60,6 +60,7 @@
 
 - **Tinkle** - [@Web3Tinkle](https://x.com/Web3Tinkle)
 - **唯一官方推特** - [@nofx_official](https://x.com/nofx_official)
+- **唯一官方推特** - [@nofx_official](https://x.com/nofx_official)
 
 ### 💼 种子轮融资进行中
 
