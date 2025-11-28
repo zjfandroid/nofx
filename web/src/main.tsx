@@ -1,8 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
 import { Toaster } from 'sonner'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './routes/index.tsx'
 import './index.css'
+import { LanguageProvider } from './contexts/LanguageContext.tsx'
+import { AuthProvider } from './contexts/AuthContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -21,6 +24,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         },
       }}
     />
-    <App />
+    <LanguageProvider>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </LanguageProvider>
   </React.StrictMode>
 )
