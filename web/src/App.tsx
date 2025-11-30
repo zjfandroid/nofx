@@ -9,10 +9,11 @@ import { ResetPasswordPage } from './components/ResetPasswordPage'
 import { CompetitionPage } from './components/CompetitionPage'
 import { LandingPage } from './pages/LandingPage'
 import { FAQPage } from './pages/FAQPage'
-import HeaderBar from './components/landing/HeaderBar'
+import HeaderBar from './components/HeaderBar'
 import AILearning from './components/AILearning'
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
+import { ConfirmDialogProvider } from './components/ConfirmDialog'
 import { t, type Language } from './i18n/translations'
 import { useSystemConfig } from './hooks/useSystemConfig'
 import { DecisionCard } from './components/DecisionCard'
@@ -26,7 +27,14 @@ import type {
   TraderInfo,
 } from './types'
 
-type Page = 'competition' | 'traders' | 'trader' | 'backtest'
+type Page =
+  | 'competition'
+  | 'traders'
+  | 'trader'
+  | 'backtest'
+  | 'faq'
+  | 'login'
+  | 'register'
 
 // 获取友好的AI模型名称
 function getModelDisplayName(modelId: string): string {
@@ -256,7 +264,7 @@ function App() {
           onLanguageChange={setLanguage}
           user={user}
           onLogout={logout}
-          onPageChange={(page) => {
+          onPageChange={(page: Page) => {
             console.log('Competition page onPageChange called with:', page)
             console.log('Current route:', route, 'Current page:', currentPage)
 
@@ -306,6 +314,40 @@ function App() {
     return <LandingPage />
   }
 
+  // Allow unauthenticated users to open backtest page directly (others仍展示 Landing)
+  if (!user || !token) {
+    if (route === '/backtest' || currentPage === 'backtest') {
+      return (
+        <div
+          className="min-h-screen"
+          style={{ background: '#0B0E11', color: '#EAECEF' }}
+        >
+          <HeaderBar
+            isLoggedIn={false}
+            currentPage="backtest"
+            language={language}
+            onLanguageChange={setLanguage}
+            onPageChange={(page: Page) => {
+              if (page === 'competition') {
+                window.history.pushState({}, '', '/competition')
+                setRoute('/competition')
+                setCurrentPage('competition')
+              } else if (page === 'traders') {
+                window.history.pushState({}, '', '/traders')
+                setRoute('/traders')
+                setCurrentPage('traders')
+              }
+            }}
+          />
+          <main className="max-w-[1920px] mx-auto px-6 py-6 pt-24">
+            <BacktestPage />
+          </main>
+        </div>
+      )
+    }
+    return <LandingPage />
+  }
+
   // Show main app for authenticated users on other routes
   if (!user || !token) {
     // Default to landing page when not authenticated and no specific route
@@ -324,7 +366,7 @@ function App() {
         onLanguageChange={setLanguage}
         user={user}
         onLogout={logout}
-        onPageChange={(page) => {
+        onPageChange={(page: Page) => {
           console.log('Main app onPageChange called with:', page)
 
           if (page === 'competition') {
@@ -1021,7 +1063,9 @@ export default function AppWithProviders() {
   return (
     <LanguageProvider>
       <AuthProvider>
-        <App />
+        <ConfirmDialogProvider>
+          <App />
+        </ConfirmDialogProvider>
       </AuthProvider>
     </LanguageProvider>
   )
