@@ -6,16 +6,25 @@ import { t, type Language } from '../i18n/translations'
 import { Container } from './Container'
 import { useSystemConfig } from '../hooks/useSystemConfig'
 
+type Page =
+  | 'competition'
+  | 'traders'
+  | 'trader'
+  | 'backtest'
+  | 'faq'
+  | 'login'
+  | 'register'
+
 interface HeaderBarProps {
   onLoginClick?: () => void
   isLoggedIn?: boolean
   isHomePage?: boolean
-  currentPage?: string
+  currentPage?: Page
   language?: Language
   onLanguageChange?: (lang: Language) => void
   user?: { email: string } | null
   onLogout?: () => void
-  onPageChange?: (page: string) => void
+  onPageChange?: (page: Page) => void
 }
 
 export default function HeaderBar({
@@ -92,6 +101,9 @@ export default function HeaderBar({
               <>
                 <button
                   onClick={() => {
+                    if (onPageChange) {
+                      onPageChange('competition')
+                    }
                     navigate('/competition')
                   }}
                   className="text-sm font-bold transition-all duration-300 relative focus:outline-2 focus:outline-yellow-500"
@@ -169,6 +181,9 @@ export default function HeaderBar({
 
                 <button
                   onClick={() => {
+                    if (onPageChange) {
+                      onPageChange('traders')
+                    }
                     navigate('/traders')
                   }}
                   className="text-sm font-bold transition-all duration-300 relative focus:outline-2 focus:outline-yellow-500"
@@ -208,6 +223,9 @@ export default function HeaderBar({
 
                 <button
                   onClick={() => {
+                    if (onPageChange) {
+                      onPageChange('trader')
+                    }
                     navigate('/dashboard')
                   }}
                   className="text-sm font-bold transition-all duration-300 relative focus:outline-2 focus:outline-yellow-500"
@@ -248,10 +266,50 @@ export default function HeaderBar({
                 <button
                   onClick={() => {
                     if (onPageChange) {
-                      onPageChange('faq')
-                    } else {
-                      navigate('/faq')
+                      onPageChange('backtest')
                     }
+                    navigate('/backtest')
+                  }}
+                  className="text-sm font-bold transition-all duration-300 relative focus:outline-2 focus:outline-yellow-500"
+                  style={{
+                    color:
+                      currentPage === 'backtest'
+                        ? 'var(--brand-yellow)'
+                        : 'var(--brand-light-gray)',
+                    padding: '8px 16px',
+                    borderRadius: '8px',
+                    position: 'relative',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (currentPage !== 'backtest') {
+                      e.currentTarget.style.color = 'var(--brand-yellow)'
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (currentPage !== 'backtest') {
+                      e.currentTarget.style.color = 'var(--brand-light-gray)'
+                    }
+                  }}
+                >
+                  {currentPage === 'backtest' && (
+                    <span
+                      className="absolute inset-0 rounded-lg"
+                      style={{
+                        background: 'rgba(240, 185, 11, 0.15)',
+                        zIndex: -1,
+                      }}
+                    />
+                  )}
+
+                  Backtest
+                </button>
+
+                <button
+                  onClick={() => {
+                    if (onPageChange) {
+                      onPageChange('faq')
+                    }
+                    navigate('/faq')
                   }}
                   className="text-sm font-bold transition-all duration-300 relative focus:outline-2 focus:outline-yellow-500"
                   style={{
@@ -732,9 +790,8 @@ export default function HeaderBar({
                 onClick={() => {
                   if (onPageChange) {
                     onPageChange('traders')
-                  } else {
-                    navigate('/traders')
                   }
+                  navigate('/traders')
                   setMobileMenuOpen(false)
                 }}
                 className="block text-sm font-bold transition-all duration-300 relative focus:outline-2 focus:outline-yellow-500 hover:text-yellow-500"
@@ -767,9 +824,8 @@ export default function HeaderBar({
                 onClick={() => {
                   if (onPageChange) {
                     onPageChange('trader')
-                  } else {
-                    navigate('/dashboard')
                   }
+                  navigate('/dashboard')
                   setMobileMenuOpen(false)
                 }}
                 className="block text-sm font-bold transition-all duration-300 relative focus:outline-2 focus:outline-yellow-500 hover:text-yellow-500"
@@ -802,9 +858,8 @@ export default function HeaderBar({
                 onClick={() => {
                   if (onPageChange) {
                     onPageChange('faq')
-                  } else {
-                    navigate('/faq')
                   }
+                  navigate('/faq')
                   setMobileMenuOpen(false)
                 }}
                 className="block text-sm font-bold transition-all duration-300 relative focus:outline-2 focus:outline-yellow-500 hover:text-yellow-500"
