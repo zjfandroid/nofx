@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://nofx-production-27db.up.railway.app',
+        target: 'http://52.197.196.213',
         changeOrigin: true,
       },
     },
